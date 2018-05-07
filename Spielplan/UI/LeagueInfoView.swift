@@ -14,6 +14,7 @@ class LeagueInfoView: UIView {
   private var dateLabel: UILabel!
   private var bottomLine: CAShapeLayer!
   
+  /// The leage the view should display
   var league: League? {
     didSet { setupContent() }
   }
