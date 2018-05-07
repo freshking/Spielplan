@@ -39,18 +39,11 @@ class LeagueInfoView: UIView {
       path.addLine(to: CGPoint(x: bounds.width, y: bounds.height - bottomLine.lineWidth))
       bottomLine.path = path.cgPath
     }
-    let padding: CGFloat = 10.0
-    let top = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
-    if let titleLabel = titleLabel, let dateLabel = dateLabel {
-      // titleLabel
-      titleLabel.frame = CGRect(x: padding, y: top + padding, width: bounds.width - (2 * padding), height: 30.0)
-      // dateLabel
-      dateLabel.frame = CGRect(x: padding, y: titleLabel.frame.maxY + padding, width: bounds.width - (2 * padding), height: 25.0)
-    }
   }
   
   /// Constructs view objects
   private func setupView() {
+    let padding: CGFloat = 10.0
     if bottomLine == nil {
       bottomLine = CAShapeLayer()
       bottomLine.lineWidth = 1.0
@@ -58,21 +51,24 @@ class LeagueInfoView: UIView {
       layer.addSublayer(bottomLine)
     }
     if titleLabel == nil {
-      titleLabel = UILabel(frame: .zero)
-      titleLabel.font = UIFont.systemFont(ofSize: 20)
+      let height: CGFloat = 30.0
+      titleLabel = UILabel(frame: CGRect(x: padding, y: (bounds.height - height)/2.0, width: bounds.width - (2 * padding), height: height))
+      titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
       titleLabel.textAlignment = .center
       titleLabel.adjustsFontSizeToFitWidth = true
       titleLabel.numberOfLines = 1
       titleLabel.textColor = .black
+      titleLabel.autoresizingMask = .flexibleWidth
       addSubview(titleLabel)
     }
     if dateLabel == nil {
-      dateLabel = UILabel(frame: .zero)
-      dateLabel.font = UIFont.systemFont(ofSize: 16)
+      dateLabel = UILabel(frame: CGRect(x: padding, y: titleLabel.frame.maxY + padding, width: bounds.width - (2 * padding), height: 18.0))
+      dateLabel.font = UIFont.systemFont(ofSize: 14)
       dateLabel.textAlignment = .center
       dateLabel.adjustsFontSizeToFitWidth = true
       dateLabel.numberOfLines = 1
       dateLabel.textColor = .darkGray
+      dateLabel.autoresizingMask = .flexibleWidth
       addSubview(dateLabel)
     }
   }
